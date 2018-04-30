@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     //the starter project contains Recipe class that models and stores the information about the recipes that will be displayed
     final ArrayList<Recipe> recipeList = Recipe.getRecipesFromFile("recipe.json", this);
 
+    /*
     //create array of strings that'll contain the text to be displayed in the List View
     String[] listItems = new String[recipeList.size()];
 
@@ -62,9 +63,13 @@ public class MainActivity extends AppCompatActivity {
 
     /* create and sets a simple adapter for the ListView. The ArrayAdapter takes in the current context (a layout file
      * specifying what each row in the list should look like) and the data that will populate the list as arguments.
-     */
+     *
     ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems);
       mListView.setAdapter(adapter);
+     */
+
+    RecipeAdapter adapter = new RecipeAdapter(this, recipeList);
+    mListView.setAdapter(adapter);
   }
 
 }
