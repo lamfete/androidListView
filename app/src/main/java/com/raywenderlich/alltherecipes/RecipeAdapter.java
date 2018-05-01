@@ -1,6 +1,7 @@
 package com.raywenderlich.alltherecipes;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
@@ -81,6 +83,17 @@ public class RecipeAdapter extends BaseAdapter {
 
         // use open source picasso lib for async image loading
         Picasso.with(mContext).load(recipe.imageUrl).placeholder(R.mipmap.ic_launcher).into(thumbnailImageView);
+
+        // styling
+        Typeface titleTypeFace = Typeface.createFromAsset(mContext.getAssets(), "fonts/JosefinSans-Bold.ttf");
+        titleTextView.setTypeface(titleTypeFace);
+
+        Typeface subtitleTypeFace = Typeface.createFromAsset(mContext.getAssets(), "fonts/JosefinSans-SemiBoldItalic.ttf");
+        subtitleTextView.setTypeface(subtitleTypeFace);
+
+        Typeface detailTypeFace = Typeface.createFromAsset(mContext.getAssets(), "fonts/Quicksand-Bold.otf");
+        detailTextView.setTypeface(detailTypeFace);
+
 
         return rowView;
     }
