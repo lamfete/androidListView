@@ -70,6 +70,26 @@ public class MainActivity extends AppCompatActivity {
 
     RecipeAdapter adapter = new RecipeAdapter(this, recipeList);
     mListView.setAdapter(adapter);
+
+    final Context context = this;
+    mListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+      @Override
+      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        //get recipe object for the row that was clicked
+        Recipe selectedRecipe = recipeList.get(position);
+
+        //create an intent to navigate to RecipeDetailActivity to display more information
+        Intent detailIntent = new Intent(context, RecipeDetailActivity.class);
+
+        //inform RecipeDetailActivity the title and url of the recipe to display by passing the data via Intent
+        detailIntent.putExtra("title", selectedRecipe.title);
+        detailIntent.putExtra("url", selectedRecipe.instructionUrl);
+
+        // launch the RecipeDetailActivity by passing the intent object to the startActivity() method
+        startActivity(detailIntent);
+      }
+    });
   }
 
 }

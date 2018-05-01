@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,11 +69,14 @@ public class RecipeAdapter extends BaseAdapter {
      * define what information shows and where it sits within the ListView.
      * also inflate a custom view from the XML layout.
      */
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         //Get view from row item
         View rowView = mInflater.inflate(R.layout.list_item_recipe, parent, false);
 
+        /*
         // get title element
         TextView titleTextView = (TextView) rowView.findViewById(R.id.recipe_list_title);
 
@@ -83,6 +88,34 @@ public class RecipeAdapter extends BaseAdapter {
 
         // get thumbnail element
         ImageView thumbnailImageView = (ImageView) rowView.findViewById(R.id.recipe_list_thumbnail);
+        */
+
+        ViewHolder holder;
+
+        //
+        if(convertView == null) {
+            //
+            convertView = mInflater.inflate(R.layout.list_item_recipe, parent, false);
+
+            //
+            holder = new ViewHolder();
+            holder.thumbnailImageView = (ImageView) convertView.findViewById(R.id.recipe_list_thumbnail);
+            holder.titleTextView = (TextView) convertView.findViewById(R.id.recipe_list_title);
+            holder.subtitleTextView = (TextView) convertView.findViewById(R.id.recipe_list_subtitle);
+            holder.detailTextView = (TextView) convertView.findViewById(R.id.recipe_list_detail);
+
+            //
+            convertView.setTag(holder);
+        } else {
+            //
+            holder = (ViewHolder) convertView.getTag();
+        }
+
+        //
+        TextView titleTextView = holder.titleTextView;
+        TextView subtitleTextView = holder.subtitleTextView;
+        TextView detailTextView = holder.detailTextView;
+        ImageView thumbnailImageView = holder.thumbnailImageView;
 
         // getting the corresponding recipe for the current row
         Recipe recipe = (Recipe) getItem(position);
@@ -107,6 +140,13 @@ public class RecipeAdapter extends BaseAdapter {
 
         detailTextView.setTextColor(ContextCompat.getColor(mContext, LABEL_COLORS.get(recipe.label)));
 
-        return rowView;
+        return convertView;
+    }
+
+    private static class ViewHolder {
+        public TextView titleTextView;
+        public TextView subtitleTextView;
+        public TextView detailTextView;
+        public ImageView thumbnailImageView;
     }
 }
